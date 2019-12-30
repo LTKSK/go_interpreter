@@ -19,6 +19,8 @@ const (
 	SLASH     = "/"
 	LT        = "<"
 	GT        = ">"
+	EQ        = "=="
+	NOT_EQ    = "!="
 
 	LPAREN = "("
 	RPAREN = ")"
