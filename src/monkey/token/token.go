@@ -11,8 +11,14 @@ const (
 
 	ASSIGN    = "="
 	PLUS      = "+"
+	MINUS     = "-"
 	COMMA     = ","
 	SEMICOLON = ";"
+	BANG      = "!"
+	ASTERISK  = "*"
+	SLASH     = "/"
+	LT        = "<"
+	GT        = ">"
 
 	LPAREN = "("
 	RPAREN = ")"
@@ -26,4 +32,17 @@ const (
 type Token struct {
 	Type    TokenType
 	Literal string
+}
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(ident string) TokenType {
+	// user定義のものがあったらIDENTを、fnやletならそれらを返す
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }
