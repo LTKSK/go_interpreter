@@ -25,7 +25,7 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
-func(l *Lexer) NextToken() token.Token {
+func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
 	switch l.ch {
@@ -43,9 +43,9 @@ func(l *Lexer) NextToken() token.Token {
 		tok = newToken(token.PLUS, l.ch)
 	case '{':
 		tok = newToken(token.LBRACE, l.ch)
-		case '}'
+	case '}':
 		tok = newToken(token.RBRACE, l.ch)
-	case 0 :
+	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
 	}
@@ -53,6 +53,6 @@ func(l *Lexer) NextToken() token.Token {
 	return tok
 }
 
-func newToken(tokenTYpe token.TokenType, ch byte) token.Token {
+func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }

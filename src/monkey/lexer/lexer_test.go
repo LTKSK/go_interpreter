@@ -24,7 +24,6 @@ func TextNextToken(t *testing.T) {
 	}
 
 	l := New(input)
-
 	for i, tt := range tests {
 		tok := l.NextToken()
 
@@ -34,8 +33,8 @@ func TextNextToken(t *testing.T) {
 		}
 
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalc("tests[$d] - literal wrond. expexted=%q, got=%q",
-				i, tt.expectedLiteral, tok.literal)
+			t.Fatalf("tests[%d] - literal wrond. expexted=%q, got=%q",
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
