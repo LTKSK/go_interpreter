@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"monkey/ast"
 	"monkey/lexer"
 	"monkey/token"
@@ -10,6 +11,7 @@ type Parser struct {
 	l         *lexer.Lexer
 	curToken  token.Token
 	peekToken token.Token
+	errors    []string
 }
 
 func (p *Parser) nextToken() {
@@ -26,10 +28,12 @@ func (p *Parser) peekTokenIs(t token.TokenType) bool {
 }
 
 func (p *Parser) expectPeek(t token.TokenType) bool {
+	// 一つ先のtokenのtypeが想定したものだったら読み進めてtrueを返す
 	if p.peekTokenIs(t) {
 		p.nextToken()
 		return true
 	}
+	p.peekError(t)
 	return false
 }
 
@@ -75,9 +79,22 @@ func (p *Parser) ParseProgram() *ast.Program {
 	return program
 }
 
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
+func (p *Parser) peekError(t token.TokenType) {
+	msg := fmt.Sprintf("expected next token to be %s, got %s instead",
+		t, p.peekToken.Type)
+	p.errors = append(p.errors, msg)
+}
+
 func New(l *lexer.Lexer) *Parser {
 	// 引数のlexerを設定したparserを返す
-	p := &Parser{l: l}
+	p := &Parser{
+		l:      l,
+		errors: []string{},
+	}
 	// read two tokens, so curToken and peekToken are both set
 	p.nextToken()
 	p.nextToken()
