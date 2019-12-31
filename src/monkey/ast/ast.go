@@ -58,10 +58,10 @@ type LetStatement struct {
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 func (ls *LetStatement) String() string {
-	var out bytes.Bufferr
+	var out bytes.Buffer
 	out.WriteString(ls.TokenLiteral() + " ") //let
 	out.WriteString(ls.Name.String())        // 変数名
-	out.WriteString("=")
+	out.WriteString(" = ")
 	if ls.Value != nil {
 		out.WriteString(ls.Value.String()) // = の右辺
 	}
@@ -95,7 +95,7 @@ type ExpressionStatement struct {
 
 func (es *ExpressionStatement) statementNode()       {}
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
-func (rs *ExpressionStatement) String() string {
+func (es *ExpressionStatement) String() string {
 	if es.Expression != nil {
 		return es.Expression.String()
 	}
