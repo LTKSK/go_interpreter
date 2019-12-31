@@ -25,6 +25,7 @@ type Identifier struct {
 	Value string
 }
 
+// let <ident> = <expr>;
 type LetStatement struct {
 	Token token.Token
 	Name  *Identifier // let x = 5 の x
@@ -45,3 +46,13 @@ func (p *Program) TokenLiteral() string {
 	}
 	return ""
 }
+
+// return <expr>;
+type ReturnStatement struct {
+	Token       token.Token // the 'return' token
+	ReturnValue Expression
+}
+
+func (rs *ReturnStatement) statementNode() {}
+
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
