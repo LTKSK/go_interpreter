@@ -111,6 +111,7 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
+// <prefix><expression>
 type PrefixExpression struct {
 	Token    token.Token // !や-
 	Operator string
@@ -129,6 +130,7 @@ func (pe *PrefixExpression) String() string {
 	return out.String()
 }
 
+// <expression><infix><expression>
 type InfixExpression struct {
 	Token    token.Token
 	Left     Expression
