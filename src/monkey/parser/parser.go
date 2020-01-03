@@ -131,7 +131,7 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 
 func (p *Parser) parseBoolean() ast.Expression {
 	defer untrace(trace("parseBooleanExpression"))
-	return &ast.BooleanLiteral{Token: p.curToken, Value: p.curTokenIs(token.TRUE)}
+	return &ast.Boolean{Token: p.curToken, Value: p.curTokenIs(token.TRUE)}
 }
 
 func (p *Parser) parseExpression(precedence int) ast.Expression {
