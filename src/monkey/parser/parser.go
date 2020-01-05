@@ -88,7 +88,6 @@ func (p *Parser) parseIdentifier() ast.Expression {
 
 func (p *Parser) parseLetStatement() *ast.LetStatement {
 	stmt := &ast.LetStatement{Token: p.curToken}
-
 	if !p.expectPeek(token.IDENT) {
 		return nil
 	}
@@ -97,11 +96,11 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	if !p.expectPeek(token.ASSIGN) {
 		return nil
 	}
-
 	p.nextToken()
+
 	stmt.Value = p.parseExpression(LOWEST)
 
-	for !p.curTokenIs(token.SEMICOLON) {
+	if p.curTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
 	return stmt
@@ -112,7 +111,7 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	p.nextToken()
 	stmt.ReturnValue = p.parseExpression(LOWEST)
 
-	for !p.curTokenIs(token.SEMICOLON) {
+	if p.curTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
 	return stmt
