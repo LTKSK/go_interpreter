@@ -117,6 +117,7 @@ func isTruthy(obj object.Object) bool {
 
 func evalIfExpression(ie *ast.IfExpression) object.Object {
 	condition := Eval(ie.Condition)
+	// conditionの結果を受けて、trueならconsequence、falseならalternativeを実行して返す
 	if isTruthy(condition) {
 		return Eval(ie.Consequence)
 	} else if ie.Alternative != nil {
