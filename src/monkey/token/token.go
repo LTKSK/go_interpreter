@@ -6,8 +6,9 @@ const (
 	ILLEGAL = "ILLEGAL"
 	EOF     = "EOF"
 
-	IDENT = "IDENT" // add, foobar, x, y...
-	INT   = "INT"
+	IDENT  = "IDENT" // add, foobar, x, y...
+	INT    = "INT"
+	STRING = "STRING"
 
 	ASSIGN    = "="
 	PLUS      = "+"
