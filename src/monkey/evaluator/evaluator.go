@@ -104,6 +104,14 @@ func evalStringInfixExpression(
 		leftVal := left.(*object.String).Value
 		rightVal := right.(*object.String).Value
 		return &object.String{Value: leftVal + rightVal}
+	case "==":
+		leftVal := left.(*object.String).Value
+		rightVal := right.(*object.String).Value
+		return nativeBoolToBooleanObject(leftVal == rightVal)
+	case "!=":
+		leftVal := left.(*object.String).Value
+		rightVal := right.(*object.String).Value
+		return nativeBoolToBooleanObject(leftVal != rightVal)
 	default:
 		return newError("unknown operator: %s %s %s",
 			left.Type(), operator, right.Type())
