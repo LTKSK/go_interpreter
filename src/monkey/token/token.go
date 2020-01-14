@@ -14,6 +14,7 @@ const (
 	PLUS      = "+"
 	MINUS     = "-"
 	COMMA     = ","
+	COLON     = ":"
 	SEMICOLON = ";"
 	BANG      = "!"
 	ASTERISK  = "*"
