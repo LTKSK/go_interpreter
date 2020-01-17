@@ -400,7 +400,7 @@ func TestArrayIndexExpression(t *testing.T) {
 	}
 }
 
-func TestHashLiterals(t *tesing.T) {
+func TestHashLiterals(t *testing.T) {
 	input := `let two = "two";
 	{
 		"one": 10 - 9,
@@ -426,5 +426,11 @@ func TestHashLiterals(t *tesing.T) {
 	if len(result.Pairs) != len(expected) {
 		t.Fatalf("Hash has wrond num of pairs. got=%d", len(result.Pairs))
 	}
-	testIntegerObject(t, pair.Value, expectedValue)
+	for expectedKey, expectedValue := range expected {
+		pair, ok := result.Pairs[expectedKey]
+		if !ok {
+			t.Errorf("no pair for given key in Pairs")
+		}
+		testIntegerObject(t, pair.Value, expectedValue)
+	}
 }
