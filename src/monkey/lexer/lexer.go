@@ -120,8 +120,9 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Type = token.LookupIdent(tok.Literal)
 			return tok
 		} else if isDigit(l.ch) {
-			tok.Type = token.INT
-			tok.Literal = l.readNumber()
+			number, tt := l.readNumber()
+			tok.Type = tt
+			tok.Literal = number
 			return tok
 		} else {
 			fmt.Println(string(l.ch))
@@ -136,13 +137,25 @@ func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9'
 }
 
-func (l *Lexer) readNumber() string {
+func (l *Lexer) readNumber() (string, token.TokenType) {
 	position := l.position
+	isFloat := false
 	// 数字が続く限り読み込む
-	for isDigit(l.ch) {
+	for isDigit(l.ch) || l.ch == '.' {
+		if l.peekChar() == '.' {
+			// すでに.を読んでいたら抜ける
+			if isFloat {
+				break
+			}
+			isFloat = true
+		}
 		l.readChar()
 	}
-	return l.input[position:l.position]
+
+	if isFloat {
+		return l.input[position:l.position], token.FLOAT
+	}
+	return l.input[position:l.position], token.INT
 }
 
 func (l *Lexer) readIdentifier() string {
