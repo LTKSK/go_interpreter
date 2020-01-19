@@ -223,7 +223,7 @@ func TestIdentifierExpression(t *testing.T) {
 }
 
 func TestFloatLiteralExpression(t *testing.T) {
-	input "1.1;"
+	input := "1.1;"
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
@@ -240,7 +240,7 @@ func TestFloatLiteralExpression(t *testing.T) {
 	}
 
 	if literal.Value != 1.1 {
-		t.Errorf("literal.Value not %d. got=%d", 1.1, literal.Value)
+		t.Errorf("literal.Value not %f. got=%f", 1.1, literal.Value)
 	}
 
 	if literal.TokenLiteral() != "1.1" {
