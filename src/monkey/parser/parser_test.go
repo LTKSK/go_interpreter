@@ -222,6 +222,32 @@ func TestIdentifierExpression(t *testing.T) {
 	}
 }
 
+func TestFloatLiteralExpression(t *testing.T) {
+	input "1.1;"
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
+	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
+			program.Statements[0])
+	}
+
+	literal, ok := stmt.Expression.(*ast.FloatLiteral)
+	if !ok {
+		t.Fatalf("exp not *ast.FloatLiteral. got=%T", stmt.Expression)
+	}
+
+	if literal.Value != 1.1 {
+		t.Errorf("literal.Value not %d. got=%d", 1.1, literal.Value)
+	}
+
+	if literal.TokenLiteral() != "1.1" {
+		t.Errorf("literal.TokenLiteral not %s. got=%s", "1.1", literal.TokenLiteral())
+	}
+}
+
 func TestIntegerLiteralExpression(t *testing.T) {
 	input := "5;"
 
