@@ -145,6 +145,7 @@ func (l *Lexer) readNumber() (string, token.TokenType) {
 		if l.peekChar() == '.' {
 			// すでに.を読んでいたら抜ける
 			if isFloat {
+				l.readChar()
 				break
 			}
 			isFloat = true
