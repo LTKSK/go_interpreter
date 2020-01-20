@@ -140,10 +140,14 @@ func isDigit(ch byte) bool {
 func (l *Lexer) readNumber() (string, token.TokenType) {
 	position := l.position
 	isFloat := false
-	// 数字が続く限り読み込む
+	// 先に数字を一つ読んでおく
+	if isDigit(l.peekChar()) {
+		l.readChar()
+	}
+	// 初回以降は数字もしくは.が続く限り読み込む
 	for isDigit(l.ch) || l.ch == '.' {
 		if l.peekChar() == '.' {
-			// すでに.を読んでいたら抜ける
+			// すでに.を一度読んでいたら抜ける
 			if isFloat {
 				l.readChar()
 				break
@@ -152,7 +156,6 @@ func (l *Lexer) readNumber() (string, token.TokenType) {
 		}
 		l.readChar()
 	}
-
 	if isFloat {
 		return l.input[position:l.position], token.FLOAT
 	}
