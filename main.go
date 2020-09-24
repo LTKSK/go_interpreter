@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"monkey/repl"
+	"github.com/LTKSK/go_interpreter/monkey/repl"
 	"os"
 )
 

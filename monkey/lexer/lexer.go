@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"fmt"
-	"monkey/token"
+	"github.com/LTKSK/go_interpreter/monkey/token"
 )
 
 type Lexer struct {
